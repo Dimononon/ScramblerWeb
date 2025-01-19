@@ -35,7 +35,7 @@
       <button @click="generateButton">Згенерувати</button>
     </div>
     <div class="textarea-container">
-      <textarea v-model="byteForm.data" placeholder="Вхідні дані у HEX(12 ab d5 50)"></textarea>
+      <textarea v-model="byteForm.data" placeholder="Вхідні дані (текст)"></textarea>
       <div class="buttons">
         <button @click="scrambleButton">Заскремблювати</button>
         <button @click="unscrambleButton">Розскремблювати</button>
@@ -77,6 +77,21 @@
         }
         return bytes;
       },
+      textToBytes(text) {
+        const encoder = new TextEncoder();
+        return Array.from(encoder.encode(text));
+      },
+      bytesToText(base64Data) {
+        try {
+          const byteString = atob(base64Data);
+          const bytes = Array.from(byteString, (char) => char.charCodeAt(0));
+          const decoder = new TextDecoder();
+          return decoder.decode(new Uint8Array(bytes));
+        } catch (error) {
+          console.log("Can't convert base64 to text: " + error);
+          return base64Data;
+        }
+      },
       bytesToHex(base64Data) {
         try {
           const byteString = atob(base64Data);
@@ -115,11 +130,9 @@
       async scrambleButton() {
         try {
           const algorithmsToSend = this.selectedAlgorithms.map(algo => parseInt(algo.name));
-          const textToBytes = (text) => new TextEncoder().encode(text);
-
           const formData = {
             key: this.byteForm.key,
-            data: this.hexToBytes(this.byteForm.data),
+            data: this.textToBytes(this.byteForm.data),
             algorithms: algorithmsToSend
           };
           console.log(formData);
@@ -129,7 +142,7 @@
             }
           });
 
-          console.log("Response:", response.data);
+          console.log("Response:", this.addSpacesToHex(response.data));
           this.outputData = this.addSpacesToHex(response.data);
         } catch (error) {
           console.error("Error submitting form:", error);
@@ -138,7 +151,6 @@
       async unscrambleButton() {
         try {
           const algorithmsToSend = this.selectedAlgorithms.map(algo => parseInt(algo.name));
-          const textToBytes = (text) => new TextEncoder().encode(text);
 
           const formData = {
             key: this.byteForm.key,
@@ -153,7 +165,7 @@
           });
 
           console.log("Response:", response.data);
-          this.outputData = this.bytesToHex(response.data);
+          this.outputData = this.bytesToText(response.data);
         } catch (error) {
           console.error("Error submitting form:", error);
         }

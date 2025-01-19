@@ -12,6 +12,7 @@
     </div>
     <div>
       <ByteMode v-show="mode==0"></ByteMode>
+      <TextMode v-show="mode==1"></TextMode>
     </div>
   </div>
 
@@ -19,6 +20,7 @@
 
 <script>
   import ByteMode from "./components/ByteMode.vue";
+  import TextMode from "./components/TextMode.vue";
 
   export default {
     name: "app",
@@ -29,7 +31,8 @@
 
     },
     components: {
-      ByteMode
+      ByteMode,
+      TextMode
 
     }
   }

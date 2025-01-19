@@ -1,6 +1,0 @@
-@ScramblerWeb.Server_HostAddress = http://localhost:5214
-
-GET {{ScramblerWeb.Server_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
