@@ -3,12 +3,6 @@ namespace Services.Scramblers
 {
     public class ScramblerCaesar : IScrambler
     {
-        private int _shift=3;
-        //public ScramblerCaesar(int shift)
-        //{
-        //    _shift = shift;
-        //}
-
         public byte[] Scramble(byte[] data, byte[] key)
         {
             if (data == null || data.Length == 0) return data;
@@ -18,7 +12,7 @@ namespace Services.Scramblers
             for (int i = 0; i < data.Length; i++)
             {
                 int keyVal = key[i % key.Length] % 256;
-                result[i] = (byte)((data[i] + keyVal + _shift) % 256);
+                result[i] = (byte)((data[i] + keyVal) % 256);
             }
             return result;
         }
@@ -32,7 +26,7 @@ namespace Services.Scramblers
             for (int i = 0; i < data.Length; i++)
             {
                 int keyVal = key[i % key.Length] % 256;
-                result[i] = (byte)((data[i] - keyVal - _shift + 256) % 256);
+                result[i] = (byte)((data[i] - keyVal + 256) % 256);
             }
             return result;
         }

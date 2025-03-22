@@ -71,7 +71,7 @@
     methods: {
       hexToBytes(hex) {
         const bytes = [];
-        const sanitizedHex = hex.replace(/\s/g, ''); // Remove all spaces
+        const sanitizedHex = hex.replace(/\s/g, '');
         for (let i = 0; i < sanitizedHex.length; i += 2) {
           bytes.push(parseInt(sanitizedHex.substring(i, i + 2), 16));
         }

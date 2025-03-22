@@ -20,7 +20,6 @@ namespace ScramblerWeb.Server.Controllers
         [HttpPost("scramble")]
         public JsonResult Scramble(ByteForm form)
         {
-
             var keyBytes = Encoding.UTF8.GetBytes(form.Key);
             byte[] result = form.Data.ToArray();
             foreach (var algorithm in form.Algorithms)
