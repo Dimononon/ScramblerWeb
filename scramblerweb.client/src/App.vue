@@ -13,6 +13,7 @@
     <div>
       <ByteMode v-show="mode==0"></ByteMode>
       <TextMode v-show="mode==1"></TextMode>
+      <FileMode v-show="mode==2"></FileMode>
     </div>
   </div>
 
@@ -21,6 +22,7 @@
 <script>
   import ByteMode from "./components/ByteMode.vue";
   import TextMode from "./components/TextMode.vue";
+  import FileMode from "./components/FileMode.vue";
 
   export default {
     name: "app",
@@ -32,7 +34,8 @@
     },
     components: {
       ByteMode,
-      TextMode
+      TextMode,
+      FileMode
 
     }
   }
