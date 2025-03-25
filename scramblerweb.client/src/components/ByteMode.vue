@@ -1,3 +1,4 @@
+
 <template>
   <div class="container">
     <div class="container">
@@ -30,7 +31,6 @@
 
     </div>
     <div class="row">
-      <label for="key">Ключ</label>
       <input type="text" v-model="byteForm.key" placeholder="Введіть ключ">
       <button @click="generateButton">Згенерувати</button>
     </div>
@@ -47,7 +47,6 @@
 
 <script>
   import axios from 'axios';
-
   export default {
     name: "app",
     components: {},
@@ -190,135 +189,3 @@
   };
 </script>
 
-<style>
-  .textarea-container {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  textarea {
-    width: 45%;
-    height: 200px;
-    resize: none;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-
-  .container {
-    margin: auto;
-    background: #fff;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-  }
-
-    .container h3 {
-      margin: 0 0 15px 0;
-    }
-
-  .row {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    margin-top: 20px;
-    gap: 5px;
-  }
-
-    .row label {
-      flex-shrink: 0;
-      white-space: nowrap;
-    }
-
-    .row input[type="text"] {
-      flex: 1;
-      padding: 6px;
-    }
-
-    .row button {
-      padding: 8px 15px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-
-  .buttons {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-    .buttons button {
-      margin: 5px 10px;
-      padding: 10px 10px 10px 10px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      width: 120px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-    }
-
-  .algorithm-buttons {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 10px;
-    margin-bottom: 15px;
-  }
-
-    .algorithm-buttons button {
-      padding: 10px 10px;
-      color: black;
-      border: 1px solid black;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-      .algorithm-buttons button:hover {
-        filter: brightness(85%);
-      }
-
-  .selected-algorithms {
-    margin-top: 15px;
-  }
-
-  .horizontal-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .algorithm-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
-    border-radius: 4px;
-    cursor: grab;
-    min-width: 120px;
-    color: black;
-    border: 1px solid black
-  }
-
-    .algorithm-item.dragging {
-      opacity: 0.7;
-    }
-
-    .algorithm-item button {
-      background: white;
-      color: black;
-      border: none;
-      border-radius: 50%;
-      width: 20px;
-      height: 20px;
-      cursor: pointer;
-      margin-left: 5px;
-    }
-
-      .algorithm-item button:hover {
-        background: #ccc;
-      }
-</style>

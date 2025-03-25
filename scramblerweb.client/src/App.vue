@@ -1,8 +1,8 @@
 
 <template>
-  <div id="app">
+  <div id="app" style="margin: 0 15%;">
 
-    <div class="container" style="margin-bottom:5px;">
+    <div class="container">
       <label>Оберіть режим роботи</label>
       <select class="custom-select" v-model="mode">
         <option value="0">Скремблювати байти</option>
@@ -15,6 +15,7 @@
       <TextMode v-show="mode==1"></TextMode>
       <FileMode v-show="mode==2"></FileMode>
     </div>
+
   </div>
 
 </template>
@@ -72,14 +73,6 @@
   .mode {
     border: 1px;
     color: red;
-  }
-
-  .container {
-    margin: auto;
-    background: #fff;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
   }
 
   label {
