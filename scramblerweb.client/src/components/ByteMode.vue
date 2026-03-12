@@ -46,7 +46,7 @@
 </template>
 
 <script>
-  import axios from 'axios';
+  import api from '../api';
   export default {
     name: "app",
     components: {},
@@ -55,7 +55,7 @@
         algorithms: [
           { name: "0", label: "XOR", color: "#ff9999" },
           { name: "1", label: "Перестановка блоків", color: "#99ccff" },
-          { name: "2", label: "Цезар", color: "#99ff99" },
+          { name: "2", label: "Адитивне перетворення", color: "#99ff99" },
         ],
         selectedAlgorithms: [],
         dragIndex: null,
@@ -70,7 +70,7 @@
     methods: {
       hexToBytes(hex) {
         const bytes = [];
-        const sanitizedHex = hex.replace(/\s/g, ''); // Remove all spaces
+        const sanitizedHex = hex.replace(/\s/g, '');
         for (let i = 0; i < sanitizedHex.length; i += 2) {
           bytes.push(parseInt(sanitizedHex.substring(i, i + 2), 16));
         }
@@ -104,7 +104,7 @@
       },
       async generateButton() {
         try {
-          const response = await axios.get("https://localhost:7168/api/Home/generateKey?length=32");
+          const response = await api.get("/api/Home/generateKey?length=32");
           this.byteForm.key = response.data;
           console.log('Generated key:', this.byteForm.key)
         } catch (error) {
@@ -114,19 +114,13 @@
       async scrambleButton() {
         try {
           const algorithmsToSend = this.selectedAlgorithms.map(algo => parseInt(algo.name));
-          const textToBytes = (text) => new TextEncoder().encode(text);
-
           const formData = {
             key: this.byteForm.key,
             data: this.hexToBytes(this.byteForm.data),
             algorithms: algorithmsToSend
           };
           console.log(formData);
-          const response = await axios.post("https://localhost:7168/api/Home/scramble", formData, {
-            headers: {
-              "Content-Type": "application/json"
-            }
-          });
+          const response = await api.post("/api/Home/scramble", formData);
 
           console.log("Response:", response.data);
           this.outputData = this.addSpacesToHex(response.data);
@@ -137,7 +131,6 @@
       async unscrambleButton() {
         try {
           const algorithmsToSend = this.selectedAlgorithms.map(algo => parseInt(algo.name));
-          const textToBytes = (text) => new TextEncoder().encode(text);
 
           const formData = {
             key: this.byteForm.key,
@@ -145,11 +138,7 @@
             algorithms: algorithmsToSend
           };
           console.log(formData);
-          const response = await axios.post("https://localhost:7168/api/Home/unscramble", formData, {
-            headers: {
-              "Content-Type": "application/json"
-            }
-          });
+          const response = await api.post("/api/Home/unscramble", formData);
 
           console.log("Response:", response.data);
           this.outputData = this.bytesToHex(response.data);

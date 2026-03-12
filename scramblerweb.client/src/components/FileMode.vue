@@ -47,7 +47,7 @@
 </template>
 
 <script>
-  import axios from 'axios';
+  import api from '../api';
 
   export default {
     name: "app",
@@ -57,7 +57,7 @@
         algorithms: [
           { name: "0", label: "XOR", color: "#ff9999" },
           { name: "1", label: "Перестановка блоків", color: "#99ccff" },
-          { name: "2", label: "Цезар", color: "#99ff99" },
+          { name: "2", label: "Адитивне перетворення", color: "#99ff99" },
         ],
         selectedFile: null,
         selectedAlgorithms: [],
@@ -75,7 +75,7 @@
       },
       async generateButton() {
         try {
-          const response = await axios.get("https://localhost:7168/api/Home/generateKey?length=32");
+          const response = await api.get("/api/Home/generateKey?length=32");
           this.key = response.data;
           console.log('Generated key:', this.key)
         } catch (error) {
@@ -95,7 +95,7 @@
         formData.append("algorithms", JSON.stringify(algorithmsToSend));
 
         try {
-          const response = await axios.post("https://localhost:7168/api/Home/scrambleFile", formData, {
+          const response = await api.post("/api/Home/scrambleFile", formData, {
             headers: { "Content-Type": "multipart/form-data" },
             responseType: "blob",
           }
@@ -125,7 +125,7 @@
         formData.append("algorithms", JSON.stringify(algorithmsToSend));
 
         try {
-          const response = await axios.post("https://localhost:7168/api/Home/unscrambleFile", formData, {
+          const response = await api.post("/api/Home/unscrambleFile", formData, {
             responseType: "blob"
 
           });
